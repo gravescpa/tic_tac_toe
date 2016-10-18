@@ -2,7 +2,8 @@
 
 def board
     print "\n"
-    2.times puts "___|___|___"
+    puts "___|___|___"
+    puts "___|___|___"
     puts "   |   |"
     print "\n"
 end
