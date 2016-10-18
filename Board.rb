@@ -13,7 +13,7 @@ game_instruction
 
 def players
     puts "Player 1, would you like to be X or O? "
-    player1 = gets.chomp
+    #player1 = gets.chomp
     # puts "Great! Player 1 is #{player1}"
     
     if player1 == "X"
