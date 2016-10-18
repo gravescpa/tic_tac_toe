@@ -11,12 +11,19 @@ def game_instruction
 end
 game_instruction
 
-def player1
+def players
     puts "Player 1, would you like to be X or O? "
     player1 = gets.chomp
-    puts "Great! Player 1 is #{player1}"
+    # puts "Great! Player 1 is #{player1}"
+    
+    if player1 == "X"
+        player2 = "O"
+    elsif player1 == "O"
+        player2 = "X"
+    end
+    puts "Great! Player 1 is #{player1} and Player 2 is #{player2}"
 end
-player1
+players
 
 
 # class Board
