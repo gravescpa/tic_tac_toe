@@ -9,19 +9,19 @@ def game_instruction
     puts " 7 | 8 | 9 "
     print "\n"
 end
-game_instruction
+# game_instruction
 
 def players
     puts "Player 1, would you like to be X or O? "
-    #player1 = gets.chomp
+    player1 = gets.chomp
     # puts "Great! Player 1 is #{player1}"
-    
+    # player1 = "X"
     if player1 == "X"
         player2 = "O"
-    elsif player1 == "O"
+    else
         player2 = "X"
     end
-    puts "Great! Player 1 is #{player1} and Player 2 is #{player2}"
+    # puts "Great! Player 1 is #{player1} and Player 2 is #{player2}"
 end
 players
 
