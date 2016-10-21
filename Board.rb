@@ -10,6 +10,8 @@ class Tic_tac_toe
 ##################################################
     def game_instruction
         print "\n"
+        puts "Do you want to play Tic-Tac-Toe?"
+        print "\n" * 2
         puts " 1 | 2 | 3    The positions to play on the tic-tac-toe board are"
         puts "---|---|---   represented by number 1-9 as shown."
         puts " 4 | 5 | 6    To place an 'X' or 'O' in a certain position,"
