@@ -1,11 +1,13 @@
 # This displays a very simple graphic tic tac toe board
-class Ttt
-    # attr_reader :board, :player1, :player2, :pos
+class Tic_tac_toe
+    attr_reader :board #:player1, :player2
 
     def initialize
         @board = Array.new(3) {Array.new(3, " ")}
+        # @player1 = Player.new
+        # @player2 = Player.new
     end
-
+##################################################
     def game_instruction
         print "\n"
         puts " 1 | 2 | 3    The positions to play on the tic-tac-toe board are"
@@ -15,23 +17,31 @@ class Ttt
         puts " 7 | 8 | 9 "
         print "\n"
     end
-
+##################################################
+    def play_game
+        game_instruction
+        players
+        board
+        player_move
+    end
+###################################################
     def players
         puts "Player 1, would you like to be X or O? "
         player1 = gets.chomp
-        puts "Great! Player 1 is #{player1}"
+        # puts "Great! Player 1 is #{@player1}"
     
-        if player1 == "X"
-            player2 = "O"
-        else
-            player2 = "X"
-        end
+            if player1 == "X"
+                player2 = "O"
+            else
+                player2 = "X"
+            end
+
         puts "Great! Player 1 is #{player1} and Player 2 is #{player2}"
+        print "\n"
     end
-
-
+###################################################
     def board
-        (o..2).each do |row|
+        (0..2).each do |row|
             print "       "
             (0..2).each do |col|
                 print @board[row][col]
@@ -42,8 +52,7 @@ class Ttt
         end
         print "\n"
     end
-       
-
+######################################################
     def player_move
         print "\n"
         print "Player 1, which space do you choose?"
@@ -52,7 +61,7 @@ class Ttt
             col = move % 3
             return row.col
     end
-
+######################################################
 end
-ttt()
 
+Tic_tac_toe.new.play_game
