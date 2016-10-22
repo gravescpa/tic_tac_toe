@@ -1,11 +1,11 @@
 # This displays a very simple graphic tic tac toe board
 class Tic_tac_toe
-    attr_reader :board, :player1, :player2
+    attr_reader :grid, :player1, :player2
 
     def initialize
-        @board = Array.new(3) {Array.new(3, " ")}
-        @player1 = Player.new
-        @player2 = Player.new
+        @grid = Game_board.new
+        @player1 = ""
+        @player2 = ""
     end
 ##################################################
     def game_instruction
@@ -23,41 +23,41 @@ class Tic_tac_toe
     def play_game
         game_instruction
         players
-        print_board
+        Game_board.new
+        # print_board
         player_move
     end
 ###################################################
     def players
         puts "Player 1, would you like to be X or O? "
-        player1 = gets.chomp
-        # puts "Great! Player 1 is #{@player1}"
+        @player1 = gets.chomp
     
-            if player1 == "X"
-                player2 = "O"
+            if @player1 == "X"
+                @player2 = "O"
             else
-                player2 = "X"
+                @player2 = "X"
             end
 
-        puts "Great! Player 1 is #{player1} and Player 2 is #{player2}"
+        puts "Great! Player 1 is #{@player1} and Player 2 is #{@player2}"
         print "\n"
     end
 ###################################################
-    def print_board
-        (0..2).each do |row|
-            print "       "
-            (0..2).each do |col|
-                print @board[row][col]
-                print " | " unless col == 2
-            end
-            print "\n"
-            print "       ---------\n" unless row == 2
-        end
-        print "\n"
-    end
+    # def print_board
+    #     (0..2).each do |row|
+    #         print "       "
+    #         (0..2).each do |col|
+    #             print @board[row][col]
+    #             print " | " unless col == 2
+    #         end
+    #         print "\n"
+    #         print "       ---------\n" unless row == 2
+    #     end
+    #     print "\n"
+    # end
 ######################################################
     def player_move
         print "\n"
-        print "#{player1}, which space do you choose?"
+        print "Player #{player1}, which space do you choose?"
             move = gets.chomp.to_i - 1
             row = move / 3
             col = move % 3
@@ -80,8 +80,8 @@ class Game_board
     end
 
     def update(space, marker)
-        if @board[marker] == @empty
-            @board[marker] = symbol
+        if @board[space] == @empty
+            @board[space] = marker
             return true
         end
     end
@@ -97,5 +97,6 @@ end
 
 
 end
-Player = Struct.new()
+# Player = Struct.new(marker)
 Tic_tac_toe.new.play_game
+# Game_board.new
