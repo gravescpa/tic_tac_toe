@@ -2,13 +2,16 @@
 class Tic_tac_toe
     attr_reader :grid, :player1, :player2
 
+# This section defines attributes
     def initialize
         @grid = Game_board.new
-        @player1 = ""
-        @player2 = ""
+        @player1 = Player.new
+        @player2 = Player.new
         @active_turn = 1
     end
 ##################################################
+# This section provides the basic game instruction
+
     def game_instruction
         print "\n"
         puts "Do you want to play Tic-Tac-Toe?"
@@ -21,25 +24,34 @@ class Tic_tac_toe
         print "\n"
     end
 ##################################################
+# This function starts the game play
+
     def play_game
         game_instruction
         players
-        Game_board.new
+        start_game
+        # Game_board.new
         # print_board
         player_move
     end
 ###################################################
-    def players
-        puts "Player 1, would you like to be X or O? "
-        @player1 = gets.chomp
-    
-            if @player1 == "X"
-                @player2 = "O"
-            else
-                @player2 = "X"
-            end
+# This section defines the players and their markers
 
-        puts "Great! Player 1 is #{@player1} and Player 2 is #{@player2}"
+    def players
+        print "\n"
+        puts "Player 1, you will be X"
+        @player1.marker = "X"
+        @player2.marker = "O"
+        # puts "Player 1, would you like to be X or O? "
+        # @player1 = gets.chomp
+    
+        #     if @player1 == "X"
+        #         @player2 = "O"
+        #     else
+        #         @player2 = "X"
+        #     end
+
+        # puts "Great! Player 1 is #{@player1} and Player 2 is #{@player2}"
         print "\n"
     end
 ###################################################
@@ -56,11 +68,13 @@ class Tic_tac_toe
     #     print "\n"
     # end
 ######################################################
+# This section defines turns and player moves
+
     def player_move
         print "\n"
         move = nil
         until (0..8).include?(move)
-            print "Player #{player1}, which space do you choose. Remember to select 1-9?"
+            print "Player #{@player1.marker}, which space do you choose. Remember to select 1-9?"
                 move = gets.chomp.to_i - 1
                 # row = move / 3
                 # col = move % 3
@@ -68,25 +82,36 @@ class Tic_tac_toe
         end
         # print_board
     end
-######################################################
+
     def turns(player)
         input = player_move
-        @grid.update(input, player.marker)
-        @active_turn += 1
+        if @grid.update_board(input, player.marker)
+            @active_turn += 1
+        end
         @grid.print_board
+
     end
 
     def take_turns
         @active_turn.odd? ? turns(@player1) : turns(@player2)
     end
 
+    def start_game
+        @grid.print_board
+        take_turns until game_over
+    end
+
+    def game_over
+        @active_turn > 9
+    end
+####################################################
 
 class Game_board
     attr_reader :board, :empty
 
     def initialize
         @board = Array.new(9, @empty)
-        @empty = " "
+        @empty = "-"
     end
 
     def print_board
@@ -95,10 +120,12 @@ class Game_board
         print "\n"
     end
 
-    def update(space, marker)
+    def update_board(space, marker)
         if @board[space] == @empty
             @board[space] = marker
             return true
+        else
+            return false
         end
     end
 end
@@ -113,6 +140,6 @@ end
 
 
 end
-# Player = Struct.new(marker)
+Player = Struct.new(:marker)
 Tic_tac_toe.new.play_game
 # Game_board.new
