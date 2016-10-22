@@ -6,6 +6,7 @@ class Tic_tac_toe
         @grid = Game_board.new
         @player1 = ""
         @player2 = ""
+        @active_turn = 1
     end
 ##################################################
     def game_instruction
@@ -57,14 +58,29 @@ class Tic_tac_toe
 ######################################################
     def player_move
         print "\n"
-        print "Player #{player1}, which space do you choose?"
-            move = gets.chomp.to_i - 1
-            row = move / 3
-            col = move % 3
-            return row,col
-        print_board
+        move = nil
+        until (0..8).include?(move)
+            print "Player #{player1}, which space do you choose. Remember to select 1-9?"
+                move = gets.chomp.to_i - 1
+                # row = move / 3
+                # col = move % 3
+                # return row,col
+        end
+        # print_board
     end
 ######################################################
+    def turns(player)
+        input = player_move
+        @grid.update(input, player.marker)
+        @active_turn += 1
+        @grid.print_board
+    end
+
+    def take_turns
+        @active_turn.odd? ? turns(@player1) : turns(@player2)
+    end
+
+
 class Game_board
     attr_reader :board, :empty
 
