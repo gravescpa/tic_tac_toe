@@ -1,11 +1,11 @@
 # This displays a very simple graphic tic tac toe board
 class Tic_tac_toe
-    attr_reader :board #:player1, :player2
+    attr_reader :board, :player1, :player2
 
     def initialize
         @board = Array.new(3) {Array.new(3, " ")}
-        # @player1 = Player.new
-        # @player2 = Player.new
+        @player1 = Player.new
+        @player2 = Player.new
     end
 ##################################################
     def game_instruction
@@ -23,7 +23,7 @@ class Tic_tac_toe
     def play_game
         game_instruction
         players
-        board
+        print_board
         player_move
     end
 ###################################################
@@ -42,7 +42,7 @@ class Tic_tac_toe
         print "\n"
     end
 ###################################################
-    def board
+    def print_board
         (0..2).each do |row|
             print "       "
             (0..2).each do |col|
@@ -57,13 +57,45 @@ class Tic_tac_toe
 ######################################################
     def player_move
         print "\n"
-        print "Player 1, which space do you choose?"
+        print "#{player1}, which space do you choose?"
             move = gets.chomp.to_i - 1
             row = move / 3
             col = move % 3
-            return row.col
+            return row,col
+        print_board
     end
 ######################################################
+class Game_board
+    attr_reader :board, :empty
+
+    def initialize
+        @board = Array.new(9, @empty)
+        @empty = " "
+    end
+
+    def print_board
+        print "\n"
+        @board.each_slice(3) {|row| puts row.join(' | ')}
+        print "\n"
+    end
+
+    def update(space, marker)
+        if @board[marker] == @empty
+            @board[marker] = symbol
+            return true
+        end
+    end
 end
 
+
+
+
+
+
+
+
+
+
+end
+Player = Struct.new()
 Tic_tac_toe.new.play_game
