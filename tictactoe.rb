@@ -25,15 +25,15 @@ end
 # This section defines the players and their markers
 def players
     puts "Player 1, would you like to be X or O? "
-    player1 = gets.chomp
+    $player1 = gets.chomp
 
-        if player1 == "X"
-            player2 = "O"
+        if $player1 == "X"
+            $player2 = "O"
         else
-            player2 = "X"
+            $player2 = "X"
         end
 
-    puts "Great! Player 1 is #{player1} and Player 2 is #{player2}"
+    puts "Great! Player 1 is #{$player1} and Player 2 is #{$player2}"
     puts ""
     
 end
@@ -107,7 +107,7 @@ while @game
     chosen_field1 = gets.chomp.to_i
     
 
-    board_fields[chosen_field1] = "X"
+    board_fields[chosen_field1] = "#{$player1}"
     fill_fields(board_fields, empty_fields)
     draw_board(board_fields)
     winner?(board_fields)
@@ -118,7 +118,7 @@ while @game
 
     chosen_field2 = gets.chomp.to_i
 
-    board_fields[chosen_field2] = "O"
+    board_fields[chosen_field2] = "#{$player2}"
     fill_fields(board_fields, empty_fields)
     draw_board(board_fields)
     winner?(board_fields)
