@@ -71,6 +71,14 @@ def fill_fields(bf, ef)
     end
 end
 
+#This function ends the game if all the empty fields have been chosen
+def full_board?(ef)
+    if ef = []
+        puts "It's a tie!"
+        @game = false
+    end
+end
+
 #This starts the game by displaying the sample board and the actual game board
 game_instruction
 players
@@ -87,8 +95,7 @@ while @game
     board_fields[chosen_field1] = "X"
     fill_fields(board_fields, empty_fields)
     draw_board(board_fields)
-    # winner?(board_fields)
-    # all_fields_filled?(empty_fields)
+    full_fields?(empty_fields)
 
     #player2 turn
     puts "Player 2, choose an empty field (1-9):"
@@ -98,7 +105,6 @@ while @game
     board_fields[chosen_field2] = "O"
     fill_fields(board_fields, empty_fields)
     draw_board(board_fields)
-    # winner?(board_fields)
-    # all_fields_filled?(empty_fields)
+    full_fields?(empty_fields)
 end
 
