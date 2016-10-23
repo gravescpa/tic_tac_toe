@@ -1,6 +1,7 @@
-# This code allows a two player tic-tac-toe game to be played from the command line
+#This code allows a two player tic-tac-toe game to be played from the command line
 
 #These establish the beginning arrays/hashes and their values.  
+
 #Empty fields elements will be removed when the chosen fields are input by players
 empty_fields = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
