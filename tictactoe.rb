@@ -36,11 +36,14 @@ def players
 
     puts "Great! Player 1 is #{player1} and Player 2 is #{player2}"
     puts ""
-    puts "Let's get started!'"
+    
 end
 
 #This function draws the sample board with numbers and the game board ready for play
 def draw_board(bf)
+    puts ""
+    puts "Let's get started!'"
+    puts ""
     puts "Sample board with numbers:"
     puts ""
     puts " 1 | 2 | 3 "
@@ -84,8 +87,8 @@ while @game
     board_fields[chosen_field1] = "X"
     fill_fields(board_fields, empty_fields)
     draw_board(board_fields)
-    winner?(board_fields)
-    all_fields_filled?(empty_fields)
+    # winner?(board_fields)
+    # all_fields_filled?(empty_fields)
 
     #player2 turn
     puts "Player 2, choose an empty field (1-9):"
@@ -95,7 +98,7 @@ while @game
     board_fields[chosen_field2] = "O"
     fill_fields(board_fields, empty_fields)
     draw_board(board_fields)
-    winner?(board_fields)
-    all_fields_filled?(empty_fields)
+    # winner?(board_fields)
+    # all_fields_filled?(empty_fields)
 end
 
