@@ -72,7 +72,7 @@ end
 
 #This function ends the game if all the empty fields have been chosen
 def full_board?(ef)
-    if ef = []
+    if ef == []
         puts "It's a tie!"
         @game = false
     end
@@ -83,11 +83,11 @@ def winner?(bf)
     winning = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
     winning.each do |element|
         if bf[element[0]] == "X" && bf[element[1]] == "X" && bf[element[2]] == "X"
-            puts "Congratulations! #{player1} has won!"
+            puts "Congratulations! Player X has won!"
             @game = false
-            exit #this ends the game
+            exit #this ends the game so there won't be two winners'
         elsif bf[element[0]] == "O" && bf[element[1]] == "O" && bf[element[2]] == "O"
-            puts "Congratulations! #{player2} has won!"
+            puts "Congratulations! Player O has won!"
             @game = false
         end
     end
@@ -105,6 +105,7 @@ while @game
     puts "Player 1, choose an empty field (1-9):"
 
     chosen_field1 = gets.chomp.to_i
+    
 
     board_fields[chosen_field1] = "X"
     fill_fields(board_fields, empty_fields)
