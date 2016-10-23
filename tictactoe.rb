@@ -1,7 +1,7 @@
 # This code allows a two player tic-tac-toe game to be played from the command line
 
 #These establish the beginning arrays/hashes and their values.  
-#Empty fields will be replaced by the chosen board fields when input by players
+#Empty fields elements will be removed when the chosen fields are input by players
 empty_fields = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 board_fields = {1 => " ", 2 => " ", 3 => " ", 4 => " ", 5 => " ", 6 => " ", 7 => " ", 8 => " ", 9 => " "}
@@ -23,7 +23,6 @@ def game_instruction
 end
 
 # This section defines the players and their markers
-
 def players
     puts "Player 1, would you like to be X or O? "
     player1 = gets.chomp
@@ -79,6 +78,21 @@ def full_board?(ef)
     end
 end
 
+# This determines the winner of the game
+def winner?(bf)
+    winning = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
+    winning.each do |element|
+        if bf[element[0]] == "X" && bf[element[1]] == "X" && bf[element[2]] == "X"
+            puts "Congratulations! #{player1} has won!"
+            @game = false
+            exit #this ends the game
+        elsif bf[element[0]] == "O" && bf[element[1]] == "O" && bf[element[2]] == "O"
+            puts "Congratulations! #{player2} has won!"
+            @game = false
+        end
+    end
+end
+
 #This starts the game by displaying the sample board and the actual game board
 game_instruction
 players
@@ -95,7 +109,8 @@ while @game
     board_fields[chosen_field1] = "X"
     fill_fields(board_fields, empty_fields)
     draw_board(board_fields)
-    full_fields?(empty_fields)
+    winner?(board_fields)
+    full_board?(empty_fields)
 
     #player2 turn
     puts "Player 2, choose an empty field (1-9):"
@@ -105,6 +120,8 @@ while @game
     board_fields[chosen_field2] = "O"
     fill_fields(board_fields, empty_fields)
     draw_board(board_fields)
-    full_fields?(empty_fields)
+    winner?(board_fields)
+    full_board?(empty_fields)
+
 end
 
