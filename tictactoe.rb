@@ -39,6 +39,61 @@ board_fields = {1 => " ", 2 => " ", 3 => " ", 4 => " ", 5 => " ", 6 => " ", 7 =>
         puts "Let's get started!'"
     end
 
+#This function draws the sample board with numbers and the game board ready for play
+    def draw_board(bf)
+        puts "Sample board with numbers:"
+        puts ""
+        puts " 1 | 2 | 3 "
+        puts "---+---+---"
+        puts " 4 | 5 | 6 "
+        puts "---+---+---"
+        puts " 7 | 8 | 9 "
+        puts ""
+        puts "Game Board:"
+        puts ""
+        puts " #{bf[1]} | #{bf[2]} | #{bf[3]} "
+        puts "---+---+---"
+        puts " #{bf[4]} | #{bf[5]} | #{bf[6]} "
+        puts "---+---+---"
+        puts " #{bf[7]} | #{bf[8]} | #{bf[9]} "
+        puts ""
+    end
+
+
+#This starts the game by displaying the sample board and the actual game board
+draw_board(board_fields)
+
+# This function allows the players to take turns
+while @game
+
+    #player1 turn
+    puts "Player 1, choose an empty field (1-9):"
+
+    chosen_field1 = gets.chomp.to_i
+
+    board_fields[chosen_field1] = "X"
+    fill_field(board_fields, empty_fields)
+    draw_board(board_fields)
+    winner?(board_fields)
+    all_fields_filled?(empty_fields)
+
+    #player2 turn
+    puts "Player 2, choose an empty field (1-9):"
+
+    chosen_field2 = gets.chomp.to_i
+
+    board_fields[chosen_field2] = "O"
+    fill_field(board_fields, empty_fields)
+    draw_board(board_fields)
+    winner?(board_fields)
+    all_fields_filled?(empty_fields)
+end
+
+
+
+
+
 
 game_instruction
 players
+draw_board(bf)
