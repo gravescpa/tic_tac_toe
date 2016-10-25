@@ -6,7 +6,7 @@ class Board
     end
 
     def update(position, symbol)
-        @gameboard[position] = symbol
+        @gameboard[position.to_i] = symbol
     end
     
     def valid_space?(position)
@@ -18,18 +18,22 @@ class Board
     end
 
     def valid_input?(position)
-        if position >= 0 && position <= 8
+        if position.to_i >= 0 && position.to_i <= 8 && position =~ (/^(\d)+$/) 
+            # if  
             true
+                
         else
             false
         end
     end
 
-    def integer?(position)
-        if position =~ /^-?[0-9]/
-            true
-        else
-            false
-        end
+    def full_board?
+        gameboard.count("") == 0
+            
+        
     end
+
+
+
+
 end

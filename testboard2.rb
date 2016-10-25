@@ -6,8 +6,8 @@ class TestTicTacToeBoard < Minitest::Test
 
     def test_for_valid_input
         board = Board.new()
-        assert_equal(false, board.valid_input?(11))
-        assert_equal(true, board.valid_input?(5))
+        assert_equal(false, board.valid_input?("11"))
+        assert_equal(true, board.valid_input?("5"))
     end
 
     def test_for_occupied_space
@@ -38,6 +38,18 @@ class TestTicTacToeBoard < Minitest::Test
 
     def test_integer_only
         board = Board.new()
-        assert_equal(false, board.integer?("n"))
+        assert_equal(false, board.valid_input?("X"))
+    end
+
+    def test_for_full_board
+        board = Board.new()
+        board.gameboard = ["X","O","O","X","O","X","O","X","O"]
+        assert_equal(true, board.full_board?)
+    end
+
+    def test_partial_board_returns_false
+        board = Board.new()
+        board.gameboard = ["X","O","","","","","","",""]
+        assert_equal(false, board.full_board?)
     end
 end
