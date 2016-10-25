@@ -67,4 +67,24 @@ class TestTicTacToeBoard < Minitest::Test
         assert_equal(true, board.winner?(symbol))
     end
 
+    def test_for_winner_X_diagonal
+        board = Board.new()
+        symbol = "X"
+        board.gameboard = ["X","","","","X","","","","X"]
+        assert_equal(true, board.winner?(symbol))
+    end
+
+    def test_for_winner_O_diagonal
+        board = Board.new()
+        symbol = "O"
+        board.gameboard = ["","","O","","O","","O","",""]
+        assert_equal(true, board.winner?(symbol))
+    end
+
+    def test_for_false_win
+        board = Board.new()
+        symbol = "O"
+        board.gameboard = ["","O","","","O","","O","",""]
+        assert_equal(false, board.winner?(symbol))
+    end 
 end

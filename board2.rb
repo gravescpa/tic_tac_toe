@@ -32,13 +32,20 @@ class Board
     end
 
     def winner?(symbol)
-        gameboard[0] == symbol && gameboard[1] == symbol && gameboard[2] == symbol
+        gameboard[0] == symbol && gameboard[1] == symbol && gameboard[2] == symbol ||
+        gameboard[3] == symbol && gameboard[4] == symbol && gameboard[5] == symbol ||
+        gameboard[6] == symbol && gameboard[7] == symbol && gameboard[8] == symbol ||
+        gameboard[0] == symbol && gameboard[3] == symbol && gameboard[6] == symbol ||
+        gameboard[1] == symbol && gameboard[4] == symbol && gameboard[7] == symbol ||
+        gameboard[2] == symbol && gameboard[5] == symbol && gameboard[9] == symbol ||
+        gameboard[0] == symbol && gameboard[4] == symbol && gameboard[8] == symbol ||
+        gameboard[2] == symbol && gameboard[4] == symbol && gameboard[6] == symbol
         # if gameboard.include?
         #     winners = [[1, 2, 3]] #[4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
         #     winners.each do |element|
-        #         if bf[element[0]] == "X" && bf[element[1]] == "X" && bf[element[2]] == "X"
+        #         if symbol[element[0]] == "X" && symbol[element[1]] == "X" && symbol[element[2]] == "X"
         #             true
-        #         elsif bf[element[0]] == "O" && bf[element[1]] == "O" && bf[element[2]] == "O"
+        #         elsif symbol[element[0]] == "O" && symbol[element[1]] == "O" && symbol[element[2]] == "O"
         #             false
         #         end
         #     end
