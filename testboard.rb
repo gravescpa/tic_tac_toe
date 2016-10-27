@@ -1,5 +1,5 @@
 require "minitest/autorun"
-require_relative 'board2.rb'
+require_relative 'board.rb'
 
 
 class TestTicTacToeBoard < Minitest::Test
@@ -12,28 +12,28 @@ class TestTicTacToeBoard < Minitest::Test
 
     def test_for_occupied_space
         board = Board.new()
-        board.gameboard = ["X","O","","","","","","",""]
+        board.grid = ["X","O","","","","","","",""]
         assert_equal(false, board.valid_space?(1))
         assert_equal(true, board.valid_space?(2))
     end
 
     def test_for_update_board_turn_2
         board = Board.new()
-        board.gameboard = ["X","","","","","","","",""]
+        board.grid = ["X","","","","","","","",""]
         board.update(1, "O")
-        assert_equal(["X","O","","","","","","",""], board.gameboard)
+        assert_equal(["X","O","","","","","","",""], board.grid)
     end
 
     def test_for_update_board_turn_1
         board = Board.new()
-        board.gameboard = ["","","","","","","","",""]
+        board.grid = ["","","","","","","","",""]
         board.update(0, "X")
-        assert_equal(["X","","","","","","","",""], board.gameboard)
+        assert_equal(["X","","","","","","","",""], board.grid)
     end
 
     def test_empty_board
         board = Board.new()
-		assert_equal(Array.new(9, ""), board.gameboard)
+		assert_equal(Array.new(9, ""), board.grid)
 	end	
 
     def test_integer_only
@@ -43,48 +43,48 @@ class TestTicTacToeBoard < Minitest::Test
 
     def test_for_full_board
         board = Board.new()
-        board.gameboard = ["X","O","O","X","O","X","O","X","O"]
+        board.grid = ["X","O","O","X","O","X","O","X","O"]
         assert_equal(true, board.full_board?)
     end
 
     def test_partial_board_returns_false
         board = Board.new()
-        board.gameboard = ["X","O","","","","","","",""]
+        board.grid = ["X","O","","","","","","",""]
         assert_equal(false, board.full_board?)
     end
 
     def test_for_winner_X
         board = Board.new()
         symbol = "X"
-        board.gameboard = ["X","X","X","","","","","",""]
+        board.grid = ["X","X","X","","","","","",""]
         assert_equal(true, board.winner?(symbol))
     end
 
     def test_for_winner_O
         board = Board.new()
         symbol = "O"
-        board.gameboard = ["O","O","O","","","","","",""]
+        board.grid = ["O","O","O","","","","","",""]
         assert_equal(true, board.winner?(symbol))
     end
 
     def test_for_winner_X_diagonal
         board = Board.new()
         symbol = "X"
-        board.gameboard = ["X","","","","X","","","","X"]
+        board.grid = ["X","","","","X","","","","X"]
         assert_equal(true, board.winner?(symbol))
     end
 
     def test_for_winner_O_diagonal
         board = Board.new()
         symbol = "O"
-        board.gameboard = ["","","O","","O","","O","",""]
+        board.grid = ["","","O","","O","","O","",""]
         assert_equal(true, board.winner?(symbol))
     end
 
     def test_for_false_win
         board = Board.new()
         symbol = "O"
-        board.gameboard = ["","O","","","O","","O","",""]
+        board.grid = ["","O","","","O","","O","",""]
         assert_equal(false, board.winner?(symbol))
     end 
 end

@@ -1,4 +1,4 @@
-    require_relative 'board2.rb'
+    require_relative 'board.rb'
     require_relative 'console_human.rb'
 
 class Console_game
@@ -32,5 +32,13 @@ class Console_game
     puts "---+---+---"
     puts " #{board.gameboard[7]}  | #{board.gameboard[8]}  | #{board.gameboard[9]} "
     puts ""
+    end
+
+    def get_move
+        current_player.get_move(board.gameboard)
+    end
+
+    def make_move(move)
+        board.update(move, current_player.marker)
     end
 end
