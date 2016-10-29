@@ -1,5 +1,6 @@
     require_relative 'board.rb'
     require_relative 'console_human.rb'
+    require_relative 'randomai.rb'
 
 class Console_game
 
@@ -11,6 +12,24 @@ class Console_game
         @player_2 = player_2
         @current_player = player_2
     end
+
+    def who_plays
+        puts """
+        Who are you playing against? (select one)
+
+        1. Human player
+        2. Random
+        3. Sequential
+        """
+        player = gets.chomp
+        if player = '1'
+
+        elsif player = '2'
+        
+        elsif player = '3'
+
+        end
+
 
     def change_player
         if current_player == player_1
