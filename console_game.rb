@@ -9,36 +9,59 @@ class Console_game
         @board = Board.new
         @player_1 = player_1
         @player_2 = player_2
-        @current_player = player_1
+        @current_player = player_2
+    end
+
+    def change_player
+        if current_player == player_1
+           @current_player = player_2
+        else
+            @current_player = player_1
+        end
     end
 
     def draw_board
-    puts ""
-    puts "Let's get started!'"
-    puts ""
-    puts "Sample board with numbers:"
-    puts ""
-    puts " 1 | 2 | 3 "
-    puts "---+---+---"
-    puts " 4 | 5 | 6 "
-    puts "---+---+---"
-    puts " 7 | 8 | 9 "
-    puts ""
-    puts "Game Board:"
-    puts ""
-    puts " #{board.gameboard[1]}  | #{board.gameboard[2]}  | #{board.gameboard[3]} "
-    puts "---+---+---"
-    puts " #{board.gameboard[4]}  | #{board.gameboard[5]}  | #{board.gameboard[6]} "
-    puts "---+---+---"
-    puts " #{board.gameboard[7]}  | #{board.gameboard[8]}  | #{board.gameboard[9]} "
-    puts ""
+        puts """
+        Let's get started!
+        
+        Sample board with numbers:
+        
+         1 | 2 | 3 
+        ---+---+---
+         4 | 5 | 6 
+        ---+---+---
+         7 | 8 | 9 
+         
+         
+        Game Board:
+        
+        #{board.grid[0]}  | #{board.grid[1]}  | #{board.grid[2]}
+        ---+---+---
+        #{board.grid[3]}  | #{board.grid[4]}  | #{board.grid[5]}
+        ---+---+---
+        #{board.grid[6]}  | #{board.grid[7]}  | #{board.grid[8]}
+
+        #{@current_player.marker} it is your turn
+        """
     end
 
     def get_move
-        current_player.get_move(board.gameboard)
+        current_player.get_move(board.grid)
     end
 
     def make_move(move)
         board.update(move, current_player.marker)
     end
+
+    def game_over?
+        if
+            board.winner?(current_player.marker)
+            puts "#{current_player.marker} has won!"
+        elsif
+            if board.full_board?
+            puts "It's a tie!"
+            end
+        end
+    end
+
 end
