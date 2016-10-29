@@ -31,15 +31,15 @@ class Console_game
          4 | 5 | 6 
         ---+---+---
          7 | 8 | 9 
-         
-         
+        
+        
         Game Board:
         
-        #{board.grid[0]}  | #{board.grid[1]}  | #{board.grid[2]}
+         #{board.grid[0]} | #{board.grid[1]} | #{board.grid[2]}
         ---+---+---
-        #{board.grid[3]}  | #{board.grid[4]}  | #{board.grid[5]}
+         #{board.grid[3]} | #{board.grid[4]} | #{board.grid[5]}
         ---+---+---
-        #{board.grid[6]}  | #{board.grid[7]}  | #{board.grid[8]}
+         #{board.grid[6]} | #{board.grid[7]} | #{board.grid[8]}
 
         #{@current_player.marker} it is your turn
         """
@@ -53,14 +53,17 @@ class Console_game
         board.update(move, current_player.marker)
     end
 
-    def game_over?
-        if
+    def game_over?        
+            board.winner?(current_player.marker) || board.full_board?
+    end
+
+    def end_message
+        if 
             board.winner?(current_player.marker)
-            puts "#{current_player.marker} has won!"
-        elsif
-            if board.full_board?
+            puts "#{current_player.marker} is the winner!"
+        else
+            board.full_board?
             puts "It's a tie!"
-            end
         end
     end
 
