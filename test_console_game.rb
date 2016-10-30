@@ -87,9 +87,9 @@ class TestConsoleGame < Minitest::Test
         assert_equal(true, game.board.full_board?)
     end
 
-    def test_who_plays_human_player
-        game = Console_game.new("X", "O")
-        player_choice = 1
-        assert_equal(Console_human, game.player)
-    end
+    # def test_who_plays_human_player
+    #     game = Console_game.new("X", "O")
+    #     player_choice = 1
+    #     assert_equal(Console_human, player)
+    # end
 end

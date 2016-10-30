@@ -1,9 +1,8 @@
 class RandomAI
-    attr_accessor :marker, :player_r, :player_2
+    attr_accessor :marker
 
     def initialize(marker)
         @marker = marker
-        @player_r = player_2
     end
 
     def valid_space?(board, choice)
@@ -11,7 +10,6 @@ class RandomAI
     end
 
     def get_move(board)
-        puts "Computer makes random move"
         random_move = rand(1..9)
         if valid_space?(board, random_move) == false
             get_move(board)

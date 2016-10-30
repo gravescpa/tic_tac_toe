@@ -1,10 +1,11 @@
     require_relative 'board.rb'
     require_relative 'console_human.rb'
-    require_relative 'randomai.rb'
+    require_relative 'console_random_ai.rb'
+    require_relative 'console_sequential_ai.rb'
 
 class Console_game
 
-    attr_accessor :board, :player_1, :player_2, :current_player, :player_r, :player_s
+    attr_accessor :board, :player_1, :player_2, :current_player
 
     def initialize(player_1, player_2)
         @board = Board.new
@@ -21,11 +22,14 @@ class Console_game
         2. Random
         3. Sequential
         """
-        player_choice = gets.chomp
-        if player_choice == '1'
-        elsif player_choice == '2'
+        who = {1 => Console_human, 2 => RandomAI, 3 => SequentialAI}
+        player_choice = gets.chomp.to_i
+        player = who[player_choice]
+
+        if player_choice == 1
+        elsif player_choice == 2
             random_play
-        elsif player_choice == '3'
+        elsif player_choice == 3
             sequential_play
         end
     end
@@ -40,6 +44,10 @@ class Console_game
 
     def random_play
         move = board.grid.sample
+    end
+
+    def sequential_play
+        move = board.grid += 1
     end
 
     def draw_board

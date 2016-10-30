@@ -12,7 +12,7 @@ class Console_human
             if board[move] == ""
                 move
             else
-                puts "Wrong move, please try again!"
+                puts "Wrong move, please select an empty space!"
                 get_move(board)
             end
         
