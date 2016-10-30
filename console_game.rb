@@ -4,7 +4,7 @@
 
 class Console_game
 
-    attr_accessor :board, :player_1, :player_2, :current_player
+    attr_accessor :board, :player_1, :player_2, :current_player, :player_r, :player_s
 
     def initialize(player_1, player_2)
         @board = Board.new
@@ -21,22 +21,25 @@ class Console_game
         2. Random
         3. Sequential
         """
-        player = gets.chomp
-        if player = '1'
-
-        elsif player = '2'
-        
-        elsif player = '3'
-
+        player_choice = gets.chomp
+        if player_choice == '1'
+        elsif player_choice == '2'
+            random_play
+        elsif player_choice == '3'
+            sequential_play
         end
-
+    end
 
     def change_player
-        if current_player == player_1
+          if @current_player == player_1
            @current_player = player_2
         else
             @current_player = player_1
         end
+    end
+
+    def random_play
+        move = board.grid.sample
     end
 
     def draw_board

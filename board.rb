@@ -5,6 +5,9 @@ class Board
         @grid = Array.new(9, "")
     end
 
+    
+
+
     def update(position, marker)
         @grid[position.to_i] = marker
     end
