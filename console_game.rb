@@ -7,10 +7,11 @@ class Console_game
 
     attr_accessor :board, :player_1, :player_2, :current_player
 
-    def initialize(player_1, player_2)
+    def initialize
         @board = Board.new
-        @player_1 = player_1
-        @player_2 = player_2
+        @player_1 = Console_human.new("X")
+        @player_2 = who_plays
+
         @current_player = player_2
     end
 
@@ -24,14 +25,7 @@ class Console_game
         """
         who = {1 => Console_human, 2 => RandomAI, 3 => SequentialAI}
         player_choice = gets.chomp.to_i
-        player = who[player_choice]
-
-        if player_choice == 1
-        elsif player_choice == 2
-            random_play
-        elsif player_choice == 3
-            sequential_play
-        end
+        player = who[player_choice].new("O")
     end
 
     def change_player
@@ -42,13 +36,13 @@ class Console_game
         end
     end
 
-    def random_play
-        move = board.grid.sample
-    end
+    # def random_play
+    #     move = board.grid.sample
+    # end
 
-    def sequential_play
-        move = board.grid += 1
-    end
+    # def sequential_play
+    #     move = board.update(move, "O")
+    # end
 
     def draw_board
         puts """

@@ -21,10 +21,8 @@ class Board
     end
 
     def valid_input?(position)
-        if position.to_i >= 0 && position.to_i <= 8 && position =~ (/^(\d)+$/) 
-            # if  
-            true
-                
+        if position.to_i >= 1 && position.to_i <= 9 && position =~ (/^(\d)+$/) 
+            true          
         else
             false
         end
@@ -40,7 +38,7 @@ class Board
         grid[6] == marker && grid[7] == marker && grid[8] == marker ||
         grid[0] == marker && grid[3] == marker && grid[6] == marker ||
         grid[1] == marker && grid[4] == marker && grid[7] == marker ||
-        grid[2] == marker && grid[5] == marker && grid[9] == marker ||
+        grid[2] == marker && grid[5] == marker && grid[8] == marker ||
         grid[0] == marker && grid[4] == marker && grid[8] == marker ||
         grid[2] == marker && grid[4] == marker && grid[6] == marker
         # if grid.include?

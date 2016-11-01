@@ -1,11 +1,6 @@
 require_relative 'console_game.rb'
 
-
-game = Console_game.new(Console_human.new("X"), RandomAI.new("O") || SequentialAI.new("O"))
-board = Board.new()
-
-game.who_plays
-
+game = Console_game.new()
 
 until game.game_over?
 # until game.board.winner?(game.current_player.marker) || game.board.full_board?
@@ -16,4 +11,4 @@ until game.game_over?
     game.draw_board
 end
 
-puts game.end_message
+game.end_message
