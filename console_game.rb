@@ -11,7 +11,6 @@ class Console_game
         @board = Board.new
         @player_1 = Console_human.new("X")
         @player_2 = who_plays
-
         @current_player = player_2
     end
 
@@ -35,14 +34,6 @@ class Console_game
             @current_player = player_1
         end
     end
-
-    # def random_play
-    #     move = board.grid.sample
-    # end
-
-    # def sequential_play
-    #     move = board.update(move, "O")
-    # end
 
     def draw_board
         puts """

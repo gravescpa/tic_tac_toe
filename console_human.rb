@@ -15,11 +15,5 @@ class Console_human
                 puts "Wrong move, please select an empty space!"
                 get_move(board)
             end
-        
-        
- 
     end
-
-
-
 end
