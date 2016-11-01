@@ -9,7 +9,7 @@ class Console_human
         puts "Make a move (1-9):"
         move = gets.chomp.to_i
         move = move - 1
-            if board[move] == ""
+            if board[move] == "" && move >= 0
                 move
             else
                 puts "Wrong move, please select an empty space!"
