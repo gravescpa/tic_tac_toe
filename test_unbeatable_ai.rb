@@ -15,8 +15,19 @@ class TestUnbeatableAI < Minitest::Test
     end
 
     def test_for_potential_win_position_0
-        player = UnbeatableAI.new("X")
-        assert_equal()
+        player = UnbeatableAI.new("O")
+        assert_equal(0, player.get_move(["", "X", "X", "", "", "", "", "", ""]))
+    end
+
+     def test_for_potential_win_position_6
+        player = UnbeatableAI.new("O")
+        assert_equal(6, player.get_move(["X", "X", "O", "", "O", "", "", "", "X"]))
+    end
+
+    def test_for_potential_win_position_3
+        player = UnbeatableAI.new("O")
+        assert_equal(3, player.get_move(["X", "", "", "", "O", "O", "", "", "X"]))
+    end
 
     # def test_valid_move
     #     player = UnbeatableAI.new("X")
