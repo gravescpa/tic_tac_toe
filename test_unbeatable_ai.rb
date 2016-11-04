@@ -14,19 +14,34 @@ class TestUnbeatableAI < Minitest::Test
         assert_equal(true, player.valid_space?(player.marker, ""))
     end
 
-    def test_for_potential_win_position_0
+    def test_for_O_potential_win_position_0
         player = UnbeatableAI.new("O")
         assert_equal(0, player.get_move(["", "X", "X", "", "", "", "", "", ""]))
     end
 
-     def test_for_potential_win_position_6
+     def test_for_O_potential_win_position_6
         player = UnbeatableAI.new("O")
         assert_equal(6, player.get_move(["X", "X", "O", "", "O", "", "", "", "X"]))
     end
 
-    def test_for_potential_win_position_3
+    def test_for_O_potential_win_position_3
         player = UnbeatableAI.new("O")
         assert_equal(3, player.get_move(["X", "", "", "", "O", "O", "", "", "X"]))
+    end
+
+    def test_for_X_potential_win_position_4
+        player = UnbeatableAI.new("X")
+        assert_equal(4, player.get_move(["X", "O", "X", "", "", "", "O", "", "X"]))
+    end
+
+    def test_for_O_block_position_8
+        player = UnbeatableAI.new("O")
+        assert_equal(8, player.get_move(["X", "", "O", "", "X", "", "O", "", ""]))
+    end
+
+    def test_for_X_block_position_5
+        player = UnbeatableAI.new("X")
+        assert_equal(5, player.get_move(["X", "", "", "O", "O", "", "", "X", ""]))
     end
 
     # def test_valid_move
