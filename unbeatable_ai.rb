@@ -89,10 +89,9 @@ class UnbeatableAI
 			if board[corner] == ""
                 @open_spot = corner
                 break
-				# corner_options.push(corner)
 			end
 		end
-		open_spot #= corner_options.shift
+		open_spot 
 	end
 
     def opponent_corner(board)
@@ -134,7 +133,6 @@ class UnbeatableAI
     
     def block_opponents_fork(board)
 		
-        # @open_spot = 10
         comp_marker = marker
 
 		if comp_marker == "O"
@@ -171,7 +169,6 @@ class UnbeatableAI
             move = 10
         else
             move = block_spot.detect {|match| block_spot.count(match) > 1}
-		# block_spot_first = block_spot.shift
         end
         move
 	end
