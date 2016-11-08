@@ -8,6 +8,7 @@ until game.game_over?
     move = game.get_move
     game.make_move(move)
     game.draw_board
+
 end
 
 game.end_message

@@ -2,6 +2,7 @@
     require_relative 'console_human.rb'
     require_relative 'console_random_ai.rb'
     require_relative 'console_sequential_ai.rb'
+    require_relative 'unbeatable_ai.rb'
 
 class Console_game
 
@@ -21,8 +22,9 @@ class Console_game
         1. Human player
         2. Random
         3. Sequential
+        4. Unbeatable
         """
-        who = {1 => Console_human, 2 => RandomAI, 3 => SequentialAI}
+        who = {1 => Console_human, 2 => RandomAI, 3 => SequentialAI, 4 => UnbeatableAI}
         player_choice = gets.chomp.to_i
         player = who[player_choice].new("O")
     end
@@ -57,6 +59,7 @@ class Console_game
          #{board.grid[6]} | #{board.grid[7]} | #{board.grid[8]}
 
         #{@current_player.marker} it is your turn
+        
         """
     end
 

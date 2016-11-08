@@ -29,6 +29,7 @@ class Board
         grid.count("") == 0        
     end
 
+
     def winner?(marker)
         grid[0] == marker && grid[1] == marker && grid[2] == marker ||
         grid[3] == marker && grid[4] == marker && grid[5] == marker ||
