@@ -38,29 +38,18 @@ class Console_game
     end
 
     def draw_board
-        puts """
-        Let's get started!
-        
-        Sample board with numbers:
-        
-         1 | 2 | 3 
-        ---+---+---
-         4 | 5 | 6 
-        ---+---+---
-         7 | 8 | 9 
-        
-        
-        Game Board:
-        
-         #{board.grid[0]} | #{board.grid[1]} | #{board.grid[2]}
-        ---+---+---
-         #{board.grid[3]} | #{board.grid[4]} | #{board.grid[5]}
-        ---+---+---
-         #{board.grid[6]} | #{board.grid[7]} | #{board.grid[8]}
-
-        #{@current_player.marker} it is your turn
-        
-        """
+        puts ""
+        puts "Let's get started!"
+        puts ""
+        puts "Game Board:"
+        puts ""
+        puts " #{board.grid[0]} | #{board.grid[1]} | #{board.grid[2]}"
+        puts "-----------"
+        puts " #{board.grid[3]} | #{board.grid[4]} | #{board.grid[5]}"
+        puts "-----------"
+        puts " #{board.grid[6]} | #{board.grid[7]} | #{board.grid[8]}"
+        puts ""
+        puts "#{@current_player.marker} it is your turn"
     end
 
     def get_move

@@ -23,6 +23,7 @@ class UnbeatableAI
     end
 
     def get_move(board)
+        # @open_spot = 10
         comp_marker = marker
 
         if comp_marker == "O"
@@ -32,28 +33,36 @@ class UnbeatableAI
         end
 
         if check_win_block(board, comp_marker) <= 8
+            # move = open_spot
             move = check_win_block(board, comp_marker)
 
             elsif check_win_block(board, player_marker) <=8
+                # move = open_spot
                 move = check_win_block(board, player_marker)
 
             elsif check_for_fork(board) <= 8
+                # move = open_spot
                 move = check_for_fork(board)
 
             elsif block_opponents_fork(board, comp_marker) <= 8
+                # move = open_spot
                 move = block_opponents_fork(board, comp_marker)
 
             elsif check_for_center(board)
+                # move = open_spot
                 move = check_for_center(board)
 
-            elsif opponent_corner(board)
-                move = opponent_corner(board)
+            # elsif opponent_corner(board)
+            #     #  move = open_spot
+            #     move = opponent_corner(board)
 
-            elsif check_empty_corner(board)
-                move = check_empty_corner(board)
+            # elsif check_empty_corner(board)
+            #     move = open_spot
+            #     # move = check_empty_corner(board)
 
-            elsif check_empty_side(board)
-                move = check_empty_side(board)
+            # elsif check_empty_side(board)
+            #     move = open_spot
+            #     # move = check_empty_side(board)
 
             else
                 move = board.index("")
@@ -92,14 +101,14 @@ class UnbeatableAI
     end
 
     def check_for_fork(board)
-		
+		@open_spot = 10
 		fork_line = []
 		fork_spot = []
 		i = []
 		
 		win_combinations(board).each_with_index do |forking_line, index|
 			if forking_line.count(marker) == 1 && forking_line.count("") == 2
-				fork_line = forking_line
+				# fork_line = forking_line
 				i.push(index)
 			end
 		end
@@ -110,23 +119,22 @@ class UnbeatableAI
 
 		fork_spot = fork_spot.flatten.sort
 
-		conditional_array = []
 		fork_spot.each do |spot|
 			if board[spot] == ""
-				conditional_array.push(spot)
+				fork_line.push(spot)
 			end
 		end
 
-		if conditional_array.detect { |match| conditional_array.count(match) > 1 } == nil
-			move = 10
+		if fork_line.detect { |match| fork_line.count(match) > 1 } == nil
+            open_spot = 10 #move = 10
 		else
-			move = conditional_array.detect { |match| conditional_array.count(match) > 1 }
+			open_spot = fork_line.detect { |match| fork_line.count(match) > 1 }
 		end
-		move
+        open_spot
 	end
 
       def block_opponents_fork(board, comp_marker)
-		
+		@open_spot = 10
         comp_marker = marker
 
 		if comp_marker == "O"
@@ -160,21 +168,22 @@ class UnbeatableAI
 		end
 
         if block_spot.detect {|match| block_spot.count(match) > 1} == nil
-            move = 10
+            open_spot = 10
         else
-            move = block_spot.detect {|match| block_spot.count(match) > 1}
+            open_spot = block_spot.detect {|match| block_spot.count(match) > 1}
         end
-        move
+        open_spot
 	end
 
     def check_for_center(board)
 		if board[4] == ""
-			move = 4
+			@open_spot = 4
         end
 	end
 
     def opponent_corner(board)
-		comp_marker = marker
+		@open_spot = 10
+        comp_marker = marker
 		
 		if comp_marker == "O"
 			player_marker = "X"
@@ -183,18 +192,19 @@ class UnbeatableAI
 		end
 
 		if board[0] == player_marker
-			move = 8
+			@open_spot = 8
+            move = 8
 		elsif board[2] == player_marker
-			move = 6
+			@open_spot = 6
+            move = 6
 		elsif board[6] == player_marker
-			move = 2
+			@open_spot = 2
+            move = 2
 		elsif board[8] == player_marker
-			move = 0
-		else
-			move = 10
+			@open_spot = 0
+            move = 0
 		end
-
-		move
+        open_spot
 	end
 
     def check_empty_corner(board)
@@ -205,8 +215,6 @@ class UnbeatableAI
 		corners.each do |corner|
 			if board[corner] == ""
                 corner_options.push(corner)
-                # @open_spot = corner
-                # break
 			end
 		end
 		first_corner_available = corner_options.shift
