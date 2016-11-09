@@ -9,12 +9,7 @@ class TestUnbeatableAI < Minitest::Test
         assert_equal("X", player.marker)
     end
 
-    # def test_for_valid_space?
-    #     player = UnbeatableAI.new("X")
-    #     assert_equal(true, player.valid_space?(player.marker, ""))
-    # end
-
-    def test_for_O_potential_win_position_0
+    def test_for_X_potential_win_position_0
         player = UnbeatableAI.new("X")
         assert_equal(0, player.get_move(["", "X", "X", "", "", "", "", "", ""]))
     end
@@ -44,9 +39,39 @@ class TestUnbeatableAI < Minitest::Test
         assert_equal(5, player.get_move(["X", "", "", "O", "O", "", "", "X", ""]))
     end
 
-    def test_for_center_not_available_take_corner
+    def test_O_fork_returns_zero
+		player = UnbeatableAI.new("O")
+		assert_equal(0, player.get_move(["", "O", "", "", "O", "X", "", "X", ""]))
+	end
+
+    def test_O_takes_center_returns_4
+		player = UnbeatableAI.new("O")
+		assert_equal(4, player.get_move(["X", "", "", "", "", "", "", "", ""]))	
+	end	
+
+    def test_0_opponent_corner_returns_8
+		player = UnbeatableAI.new("O")
+		assert_equal(8, player.opponent_corner(["X", "", "", "", "", "", "", "", ""]))
+	end
+
+    def test_0_opponent_corner_returns_8
+		player = UnbeatableAI.new("O")
+		assert_equal(8, player.opponent_corner(["X", "", "", "", "", "", "", "", ""]))
+	end
+
+    def test_X_opponent_corner_returns_2
         player = UnbeatableAI.new("X")
-        assert_equal(0, player.get_move(["", "", "", "", "X", "", "", "", ""]))
+        assert_equal(2, player.opponent_corner(["","","","","","","O","",""]))
+    end
+
+    def test_X_opponent_corner_returns_6
+        player = UnbeatableAI.new("X")
+        assert_equal(6, player.opponent_corner(["","","O","","","","","",""]))
+    end
+
+    def test_X_opponent_corner_returns_0
+        player = UnbeatableAI.new("X")
+        assert_equal(0, player.opponent_corner(["","","","","","","","","O"]))
     end
 
     def test_for_empty_corner_returns_0
@@ -54,27 +79,6 @@ class TestUnbeatableAI < Minitest::Test
         assert_equal(0, player.check_empty_corner(["", "", "", "", "X", "", "", "", ""]))
     end
 
-    def test_for_opponent_corner_returns_0
-        player = UnbeatableAI.new("X")
-        assert_equal(0, player.opponent_corner(["", "", "", "", "", "", "", "", "O"]))
-    end
-
-    # def test_valid_move
-    #     player = UnbeatableAI.new("X")
-    #     move = player.get_move(Array.new(9, ""))
-    #     assert_equal(true, [0, 1, 2, 3, 4, 5, 6, 7, 8].include?(move))
-    # end
-
-    # def test_go_for_win_0
-    #     player = UnbeatableAI.new("X")
-    #     move = 0
-    #     assert_equal(0, player.get_move(["","X","X","","","","","",""]))
-    # end
-
-    # def test_go_for_win_4
-    #     player = UnbeatableAI.new("X")
-    #     move = 4
-    #     assert_equal(4, player.get_move(["","","","X","","X","","",""]))
-    # end
+    
 
 end
