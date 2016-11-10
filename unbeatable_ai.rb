@@ -23,7 +23,7 @@ class UnbeatableAI
     end
 
     def get_move(board)
-        # @open_spot = 10
+
         comp_marker = marker
 
         if comp_marker == "O"
@@ -51,18 +51,6 @@ class UnbeatableAI
             elsif check_for_center(board)
                 # move = open_spot
                 move = check_for_center(board)
-
-            # elsif opponent_corner(board)
-            #     #  move = open_spot
-            #     move = opponent_corner(board)
-
-            # elsif check_empty_corner(board)
-            #     move = open_spot
-            #     # move = check_empty_corner(board)
-
-            # elsif check_empty_side(board)
-            #     move = open_spot
-            #     # move = check_empty_side(board)
 
             else
                 move = board.index("")
@@ -108,7 +96,7 @@ class UnbeatableAI
 		
 		win_combinations(board).each_with_index do |forking_line, index|
 			if forking_line.count(marker) == 1 && forking_line.count("") == 2
-				# fork_line = forking_line
+
 				i.push(index)
 			end
 		end
@@ -126,7 +114,7 @@ class UnbeatableAI
 		end
 
 		if fork_line.detect { |match| fork_line.count(match) > 1 } == nil
-            open_spot = 10 #move = 10
+            open_spot = 10
 		else
 			open_spot = fork_line.detect { |match| fork_line.count(match) > 1 }
 		end
@@ -218,7 +206,6 @@ class UnbeatableAI
 			end
 		end
 		first_corner_available = corner_options.shift
-        # open_spot 
 	end
 
 	def check_empty_side(board)
