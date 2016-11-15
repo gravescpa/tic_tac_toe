@@ -33,24 +33,25 @@ class UnbeatableAI
         end
 
         if check_win_block(board, comp_marker) <= 8
-            # move = open_spot
             move = check_win_block(board, comp_marker)
 
             elsif check_win_block(board, player_marker) <=8
-                # move = open_spot
                 move = check_win_block(board, player_marker)
 
             elsif check_for_fork(board) <= 8
-                # move = open_spot
                 move = check_for_fork(board)
 
             elsif block_opponents_fork(board, comp_marker) <= 8
-                # move = open_spot
                 move = block_opponents_fork(board, comp_marker)
 
             elsif check_for_center(board)
-                # move = open_spot
                 move = check_for_center(board)
+
+			elsif check_empty_corner(board)
+				move = check_empty_corner(board)
+
+			elsif check_empty_side(board)
+				move = check_empty_side(board)
 
             else
                 move = board.index("")
@@ -137,7 +138,7 @@ class UnbeatableAI
 		
 		win_combinations(board).each_with_index do |forking_line, index|
 			if forking_line.count(player_marker) == 1 && forking_line.count("") == 2
-				fork_line = forking_line
+				# fork_line = forking_line
 				i.push(index)
 			end
 		end
@@ -181,16 +182,16 @@ class UnbeatableAI
 
 		if board[0] == player_marker
 			@open_spot = 8
-            move = 8
+            # move = 8
 		elsif board[2] == player_marker
 			@open_spot = 6
-            move = 6
+            # move = 6
 		elsif board[6] == player_marker
 			@open_spot = 2
-            move = 2
+            # move = 2
 		elsif board[8] == player_marker
 			@open_spot = 0
-            move = 0
+            # move = 0
 		end
         open_spot
 	end
@@ -205,11 +206,11 @@ class UnbeatableAI
                 corner_options.push(corner)
 			end
 		end
-		first_corner_available = corner_options.shift
+		open_spot = corner_options.shift
 	end
 
 	def check_empty_side(board)
-        # @open_spot = 10
+        @open_spot = 10
 		sides = [1, 3, 5, 7]
 		side_options = []
 
@@ -218,7 +219,7 @@ class UnbeatableAI
 				side_options.push(side)
 			end
 		end
-		first_side_available = side_options.shift
+		open_spot = side_options.shift
 	end
     
   

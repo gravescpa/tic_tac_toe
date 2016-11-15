@@ -86,12 +86,12 @@ class TestUnbeatableAI < Minitest::Test
 
     def test_for_empty_corner_returns_0
         player = UnbeatableAI.new("O")
-        assert_equal(0, player.check_empty_corner(["", "", "", "", "", "", "", "", ""]))
+        assert_equal(0, player.get_move(["", "", "", "", "X", "", "", "", ""]))
     end
 
     def test_for_empty_corner_returns_2
         player = UnbeatableAI.new("O")
-        assert_equal(2, player.check_empty_corner(["X", "", "", "", "O", "X", "", "", ""]))
+        assert_equal(2, player.get_move(["X", "", "", "", "O", "X", "", "", ""]))
     end
 
     def test_for_empty_side_returns_1
