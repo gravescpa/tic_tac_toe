@@ -2,12 +2,12 @@
 
 <br><p class = "textcolor2">
 
-Okay <%= player_1_name %> it is your turn!<br></p></center>
+Okay <%= player_1_name %> you are X and it is your turn!<br></p>
 
  <form action="get_player_move" method="post">
      <table id='board'><center>
             	<tr>
-                	<td id='top-left'><input class='board-data' type='submit' name="square" value='<%= board[0] %>'></td>
+                	<td id='top-left'><type='submit' name="square" value='<%= board[0] %>'></td>
                 	<td id='top-center'><type='submit' name="square" value='<%= board[1] %>'></td>
                 	<td id='top-right'><type='submit' name="square" value='<%= board[2] %>'></td>
             	</tr>
