@@ -42,22 +42,23 @@ post '/player_2_name' do
 end
 
 get '/play_game' do
-    session[:player_1_name] = params[:player_1]
-    session[:p1] = Console_human.new("X")
-    session[:current_player] = session[:p1]
-    session[:current_player_name] = session[:player_1_name]
-    erb :play_game, :locals => {:board => session[:board].grid}
+    # session[:player_1_name] = params[:player_1]
+    # session[:p1] = Console_human.new("X")
+    # session[:current_player] = session[:p1]
+    # session[:current_player_name] = session[:player_1_name]
+    erb :play_game, :locals => {:board => session[:board].grid, :player_1_name => session[:player_1_name], :player_2_name => session[:player_2_name]}
     #the above saves your board and lets you pull it everytime you call it?  Pushes your board into the erb.  This is why mob helps i would have spent hours on that
 end
 
 get '/get_move' do
-	move = session[:current_player]
-    # .get_move(session[:board].grid)
+	# move = session[:current_player].get_move(session[:board].grid)
+    session[:p1] = Console_human.new("X")
+    session[:current_player] = session[:p1]
 
 	# if move == "NO"
 	erb :get_move, :locals => { :current_player => session[:current_player], :current_player_name => session[:current_player_name], :board => session[:board].grid }
 	# elsif session[:board].valid_space?(move)
-	# 	redirect '/make_move?move=' + move.to_s 
+		# redirect '/make_move?move=' + move.to_s 
 	# else
 	# 	redirect '/get_move'
 	# end
