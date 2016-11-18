@@ -1,7 +1,9 @@
-Player 1, What is your name?
 
-<form method = "post" action = "player_1_name">
-	<input type = "text" name = "player_1_name" autofocus>
-<br>
-<input type = "submit">
-</form>
+
+<div class="form-container">
+	<p>Player <span class="player-one">one</span>, what is your name?</p>
+	<form action="/player_1_name" method="post">
+	    <input type="text" name="player_1" autofocus="autofocus" placeholder="Enter name">
+	    <input type="submit">
+	</form>
+</div>

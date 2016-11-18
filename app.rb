@@ -11,25 +11,23 @@ enable :sessions
 ai = ""
 
 get '/' do
+    # @title = "Susan Magic Tic Tac Toe"
     session[:board] = Board.new
-    erb :home
+    erb :home, :locals => { :board => session[:board].grid }
 end
 
 get '/rules' do
     erb :rules
 end
 
-get '/history' do
-    erb :history
-end
-
 get '/player_1_name' do
-    erb :player_1_name
+    erb :player_1_name, :locals => { :board => session[:board].grid }
 end
 
 post '/player_1_name' do
     session[:player_1_name] = params[:player_1_name]
-    redirect '/player_2_name'
+    erb :opponent, :locals => { :board => session[:board].grid }
+    # redirect '/choose_opponent'
 end
 
 get '/player_2_name' do
@@ -41,33 +39,60 @@ post '/player_2_name' do
     redirect '/play_game'
 end
 
+post '/choose_opponent' do
+	player_2 = params[:player_2]
+
+	if player_2 == "human"
+		session[:player_2] = Console_human.new("O")
+
+		erb :player_2_name, :locals => { :board => session[:board].grid }
+
+	elsif player_2 == "sequential_ai"
+		session[:player_2] = SequentialAI.new("O")
+		session[:player_2_name] = "Easy Opponent"
+
+		redirect '/play_game'
+
+	elsif player_2 == "random_ai"
+		session[:player_2] = RandomAI.new("O")
+		session[:player_2_name] = "Medium Opponent"
+
+		redirect '/play_game'
+
+	else player_2 == "unbeatable_ai"
+		session[:player_2] = UnbeatableAI.new("O")
+		session[:player_2_name] = "Hard Opponent"
+
+		redirect '/play_game'
+	end
+end
+
 get '/play_game' do
     # session[:player_1_name] = params[:player_1]
-    # session[:p1] = Console_human.new("X")
-    # session[:current_player] = session[:p1]
-    # session[:current_player_name] = session[:player_1_name]
+    session[:player_1] = Console_human.new("X")
+    session[:current_player] = session[:player_1]
+    session[:current_player_name] = session[:player_1_name]
     erb :play_game, :locals => {:board => session[:board].grid, :player_1_name => session[:player_1_name], :player_2_name => session[:player_2_name]}
-    #the above saves your board and lets you pull it everytime you call it?  Pushes your board into the erb.  This is why mob helps i would have spent hours on that
+    #the above saves your board and lets you pull it everytime you call it?  Pushes your board into the erb.  
 end
 
 get '/get_move' do
-	# move = session[:current_player].get_move(session[:board].grid)
-    session[:p1] = Console_human.new("X")
-    session[:current_player] = session[:p1]
-
-	# if move == "NO"
-	erb :get_move, :locals => { :current_player => session[:current_player], :current_player_name => session[:current_player_name], :board => session[:board].grid }
-	# elsif session[:board].valid_space?(move)
-		# redirect '/make_move?move=' + move.to_s 
-	# else
-	# 	redirect '/get_move'
-	# end
+	move = session[:current_player]#.get_move(session[:board].grid)
+    
+	if move == "NO"
+        erb :get_move, :locals => { :current_player => session[:current_player], :current_player_name => session[:current_player_name], :board => session[:board].grid }
+        
+    elsif session[:board].valid_input?(move)
+            redirect '/make_move?move=' + move.to_s 
+        else
+        	# redirect '/get_move'
+	end
 end
 
 get '/get_player_move' do
     move = params[:square].to_i
 
-    if session[:board].valid_space?(move)
+    if session[:board].valid_input?(move)
         redirect '/make_move?move=' + move.to_s
     else
         redirect '/get_move'
@@ -93,56 +118,13 @@ get '/make_move' do
 		erb :tie, :locals => { :board => session[:board].grid }
 	else
 		if session[:current_player].marker == "X"
-			session[:current_player] = session[:p2]
+			session[:current_player] = session[:player_2]
 			session[:current_player_name] = session[:player_1_name]
 		else
-			session[:current_player] = session[:p1]
+			session[:current_player] = session[:player_2]
 			session[:current_player_name] = session[:player_2_name]
 		end
 
 		redirect '/get_move'
 	end	
 end
-
-
-
-# post '/choose_opponent' do
-# 	player_2 = params[:player_2]
-
-# 	if player_2 == "human"
-# 		session[:p2] = Console_human.new("O")
-
-# 		erb :opponent_name, :layout => :home_static_layout, :locals => { :board => session[:board].board_positions }
-
-# 	elsif player_2 == "sequential_ai"
-# 		session[:p2] = SequentialAI.new("O")
-# 		session[:name_player_2] = "Computer"
-
-# 		redirect '/get_move'
-
-# 	elsif player_2 == "random_ai"
-# 		session[:p2] = RandomAI.new("O")
-# 		session[:name_player_2] = "Computer"
-
-# 		redirect '/get_move'
-
-# 	else player_2 == "unbeatable_ai"
-# 		session[:p2] = UnbeatableAI.new("O")
-# 		session[:name_player_2] = "Computer"
-
-# 		redirect '/get_move'
-# 	end
-# end
-
-# get '/get_move' do
-# 	move = session[:current_player].get_move(session[:board].grid)
-
-# 	if move == "NO"
-# 		erb :get_move, :locals => { :current_player => session[:current_player], :current_player_name => session[:current_player_name], :board => session[:board].board_positions }
-# 	elsif session[:board].valid_space?(move)
-# 		redirect '/make_move?move=' + move.to_s 
-# 	else
-# 		# Does line 101 ever happen?
-# 		redirect '/get_move'
-# 	end
-# end
