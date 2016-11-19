@@ -10,7 +10,15 @@ class SequentialAI
     end
 
     def get_move(board)
-        board.index("")
+        n = board.index("")
+        choice = n + 1
+
+        if valid_space?(board, choice) == false
+            get_move(board)
+        else
+            choice
+        end
+        # board.index("")
     end
  
     end

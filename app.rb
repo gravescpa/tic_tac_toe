@@ -13,20 +13,22 @@ ai = ""
 get '/' do
     # @title = "Susan Magic Tic Tac Toe"
     session[:board] = Board.new(["","","","","","","","",""])
-    erb :home, :layout => :home_layout, :locals => { :board => session[:board].grid }
+    erb :home, :layout => :home_layout, :locals => { :board => session[:board].board_positions }
 end
 
-get '/rules' do
-    erb :rules
-end
+# get '/rules' do
+#     erb :rules
+# end
 
 get '/player_1_name' do
-    erb :player_1_name, :layout => :home_layout, :locals => { :board => session[:board].grid }
+    erb :player_1_name, :layout => :home_layout, :locals => { :board => session[:board].board_positions }
 end
 
 post '/player_1_name' do
-    session[:player_1_name] = params[:player_1_name]
-    erb :opponent, :layout => :home_layout, :locals => { :board => session[:board].grid, :player_1_name => session[:player_1_name] }
+	session[:player_1_name] = params[:player_1]
+	session[:player_1] = Console_human.new("X")
+	session[:current_player] = session[:player_1]
+    erb :opponent, :layout => :home_layout, :locals => { :board => session[:board].board_positions, :player_1_name => session[:player_1_name] }
     # redirect '/choose_opponent'
 end
 
@@ -36,7 +38,7 @@ post '/choose_opponent' do
 	if player_2 == "human"
 		session[:player_2] = Console_human.new("O")
 
-		erb :player_2_name, :layout => :home_layout, :locals => { :board => session[:board].grid }
+		erb :player_2_name, :layout => :home_layout, :locals => { :board => session[:board].board_positions }
         redirect 'player_2_name'
 
 	elsif player_2 == "sequential_ai"
@@ -60,11 +62,12 @@ post '/choose_opponent' do
 end
 
 get '/player_2_name' do
-    erb :player_2_name, :layout => :home_layout, :locals => { :board => session[:board].grid }
+    erb :player_2_name, :layout => :home_layout, :locals => { :board => session[:board].board_positions }
 end
 
 post '/player_2_name' do
     session[:player_2_name] = params[:player_2_name]
+	session[:board] = session[:board].board_positions
     redirect '/get_move'
 end
 
@@ -82,27 +85,27 @@ end
 # end
 
 get '/get_move' do
+	session[:board] = session[:board]
 
 	move = session[:current_player].get_move(session[:board].grid)
     
 	if move == "NO"
-
-        erb :get_move, :locals => { :current_player => session[:current_player], :current_player_name => session[:current_player_name], :board => session[:board].board_positions }
+		erb :get_move, :locals => { :current_player => session[:current_player], :current_player_name => session[:current_player_name], :board => session[:board].board_positions }
+        
         
     elsif session[:board].valid_space?(move)
-            redirect '/make_move?move=' + move.to_s 
+            redirect '/make_move' #+ move.to_s 
         else
         	redirect '/get_move'
 	end
 end
 
 post '/get_player_move' do
+	session[:board] = session[:board]
     move = params[:square].to_i
 
-	# erb :local => { :board => session[:board].grid }
-
     if session[:board].valid_space?(move)
-        redirect '/make_move'
+        redirect '/make_move' #+ move.to_s
     else
         redirect '/get_move'
     end
@@ -111,7 +114,7 @@ end
 get '/make_move' do
 	move_spot = params[:square].to_i
 
-	session[:board].update((move_spot - 1), session[:current_player].marker)
+	session[:board].update((move_spot), session[:current_player].marker)
 
 	# if session[:board].winner?(session[:current_player].marker) == true
 	# 	player_1 = session[:player_1_name]
