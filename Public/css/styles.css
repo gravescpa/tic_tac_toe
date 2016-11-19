@@ -2,6 +2,8 @@
 body {
   margin: 0;
 }
+li{display:inline;padding-right:1.0rem;font-size:1.50rem;}
+ul{text-align:center;}
 
 p {
   text-align: center;

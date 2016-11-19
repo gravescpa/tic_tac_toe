@@ -19,16 +19,16 @@ class Board
 	end
 
 	def update(position, marker)
-		grid[position.to_i] = marker
+		grid[position] = marker
 	end
 
 	def valid_space?(position)
 		position = (position - 1)
-		position >= 0 && position <= 8 && grid[position] == " "
+		position >= 0 && position <= 8 && grid[position] == ""
 	end
 
 	def full_board?
-		grid.count(" ") == 0
+		grid.count("") == 0
 	end
 
 	def winner?(marker)

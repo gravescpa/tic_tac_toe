@@ -3,16 +3,33 @@
     <head>
         <title><%= @title %></title>
         <meta charset='utf-8'>
-        <link rel='stylesheet' href='styles.css'>
+        <link rel='stylesheet' href='css/styles.css'>
     </head>
     <body>
     <center>
     	<div class='header-container'>
             <h1 id='header'><a>Susan Magic Tic Tac Toe</a></h1>
         </div>
-    </center>
-   
-    <center>
+        <header>
+            <ul class="textstyle">
+                <li>
+                    <a href="/">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="/rules">
+                        Rules
+                    </a>
+                </li>
+                <li>
+                    <a href="/player_1_name">
+                        Play
+                    </a>
+                </li>
+            </ul>
+        </header>
+        <form action="get_player_move" method="post">
             <table id='board'>
             	<tr>
                 	<td id='top-left'><input class='board-data' type='submit' name="square" value='<%= board[0] %>'></td>
@@ -30,6 +47,7 @@
                 	<td id='bottom-right'><input class='board-data' type='submit' name="square" value='<%= board[8] %>'></td>
             	</tr>
         </table>
+        </form>
         </center>
 		<%= yield %>
         <hr class="style-one">
@@ -41,4 +59,3 @@
     </body>
 </html>
 
-   
