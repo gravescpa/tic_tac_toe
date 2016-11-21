@@ -13,16 +13,16 @@ ai = ""
 get '/' do
     # @title = "Susan Magic Tic Tac Toe"
     session[:board] = Board.new(["","","","","","","","",""])
-    erb :player_1_name, :layout => :home_layout, :locals => { :board => session[:board].board_positions }
+    erb :home, :layout => :home_layout, :locals => { :board => session[:board].board_positions }
 end
 
 # get '/rules' do
 #     erb :rules
 # end
 
-# get '/player_1_name' do
-#     erb :player_1_name, :layout => :home_layout, :locals => { :board => session[:board].board_positions }
-# end
+get '/player_1_name' do
+    erb :player_1_name, :layout => :home_layout, :locals => { :board => session[:board].board_positions }
+end
 
 post '/player_1_name' do
 	session[:player_1_name] = params[:player_1]
@@ -38,8 +38,9 @@ post '/choose_opponent' do
 
 	if player_2 == "human"
 		session[:player_2] = Console_human.new("O")
-		session[:player_2_name] = params[:player_2]
+		
 		erb :player_2_name, :layout => :home_layout, :locals => { :board => session[:board].board_positions }
+		session[:player_2_name] = params[:player_2_name]
         redirect 'player_2_name'
 
 	elsif player_2 == "sequential_ai"
@@ -141,10 +142,10 @@ get '/make_move' do
 	# else
 		if session[:current_player].marker == "X"
 			session[:current_player] = session[:player_2]
-			session[:current_player_name] = session[:player_1_name]
+			session[:current_player_name] = session[:player_2_name]
 		else
 			session[:current_player] = session[:player_1]
-			session[:current_player_name] = session[:player_2_name]
+			session[:current_player_name] = session[:player_1_name]
 		end
 
 		redirect '/get_move'
