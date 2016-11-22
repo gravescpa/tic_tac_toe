@@ -40,7 +40,7 @@ post '/choose_opponent' do
 		session[:player_2] = Console_human.new("O")
 		
 		erb :player_2_name, :layout => :home_layout, :locals => { :board => session[:board].board_positions }
-		session[:player_2_name] = params[:player_2_name]
+		session[:player_2_name] = params[:player_2]
         redirect 'player_2_name'
 
 	elsif player_2 == "sequential_ai"
@@ -93,9 +93,10 @@ get '/get_move' do
 	# session[:board] = session[:board].board_positions
 	# session[:player_1] = params[:player_1]
 	# session[:player_2] = params[:player_2]
-	# session[:player_1_name] = session[:player_1]
-	# session[:player_2_name] = session[:player_2]
-
+	# session[:player_2_name] = session[:player_2_name]
+	
+	# session[:player_1_name] = session[:player_1_name]
+	
 	move = session[:current_player].get_move(session[:board].grid)
     
 	if move == "NO"
@@ -110,20 +111,29 @@ get '/get_move' do
 end
 
 post '/get_player_move' do
-	session[:board] = session[:board]
+	
+	# session[:board] = session[:board]
+
     move = params[:square].to_i
+	# puts "move is #{move}"
 
     if session[:board].valid_space?(move)
-        redirect '/make_move' #+ move.to_s
+        redirect '/make_move?move=' + move.to_s
+		
     else
         redirect '/get_move'
     end
+
 end
 
 get '/make_move' do
-	move_spot = params[:square].to_i
+	
+	move = params[:move].to_i
+	puts "move is #{move}"
+	session[:board].update((move - 1), session[:current_player].marker)
 
-	session[:board].update((move_spot), session[:current_player].marker)
+	redirect '/change_player'
+	erb :get_move, :locals => { :current_player => session[:current_player], :current_player_name => session[:current_player_name], :board => session[:board].board_positions }
 
 	# if session[:board].winner?(session[:current_player].marker) == true
 	# 	player_1 = session[:player_1_name]
@@ -136,18 +146,25 @@ get '/make_move' do
 	# 	player_1 = session[:player_1_name]
 	# 	player_2 = session[:player_2_name]
 	# 	winner = "Tie"
-
+end
 	# 	erb :tie, :locals => { :board => session[:board].grid }
 
 	# else
+
+
+get '/change_player' do
+	# session[:board] = session[:board].board_positions
+
 		if session[:current_player].marker == "X"
 			session[:current_player] = session[:player_2]
 			session[:current_player_name] = session[:player_2_name]
 		else
 			session[:current_player] = session[:player_1]
+			session[:current_player].marker = "X"
 			session[:current_player_name] = session[:player_1_name]
 		end
 
-		redirect '/get_move'
+		erb :get_move, :locals => { :current_player => session[:current_player], :current_player_name => session[:current_player_name], :board => session[:board].board_positions }
+	
 	# end	
 end

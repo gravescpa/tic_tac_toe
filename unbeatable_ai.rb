@@ -44,14 +44,21 @@ class UnbeatableAI
             elsif block_opponents_fork(board, comp_marker) <= 8
                 move = block_opponents_fork(board, comp_marker)
 
-            elsif check_for_center(board)
+			elsif check_for_center(board) #<= 8
                 move = check_for_center(board)
 
-			elsif check_empty_corner(board)
+			
+
+			elsif check_empty_side(board) <= 8
+				move = check_empty_side(board)
+			elsif opponent_corner(board) <= 8
+				move = opponent_corner(board)
+			  
+			elsif check_empty_corner(board) <= 8
 				move = check_empty_corner(board)
 
-			elsif check_empty_side(board)
-				move = check_empty_side(board)
+		
+			
 
             else
                 move = board.index("")
@@ -90,7 +97,7 @@ class UnbeatableAI
     end
 
     def check_for_fork(board)
-		@open_spot = 10
+		# @open_spot = 10
 		fork_line = []
 		fork_spot = []
 		i = []
@@ -123,7 +130,7 @@ class UnbeatableAI
 	end
 
       def block_opponents_fork(board, comp_marker)
-		@open_spot = 10
+		# @open_spot = 10
         comp_marker = marker
 
 		if comp_marker == "O"
@@ -171,7 +178,7 @@ class UnbeatableAI
 	end
 
     def opponent_corner(board)
-		@open_spot = 10
+		# @open_spot = 10
         comp_marker = marker
 		
 		if comp_marker == "O"
@@ -180,16 +187,16 @@ class UnbeatableAI
 			player_marker = "O"
 		end
 
-		if board[0] == player_marker
+		if board[0] == player_marker && board[8] == ""
 			@open_spot = 8
             # move = 8
-		elsif board[2] == player_marker
+		elsif board[2] == player_marker && board[6] == ""
 			@open_spot = 6
             # move = 6
-		elsif board[6] == player_marker
+		elsif board[6] == player_marker && board[2] == ""
 			@open_spot = 2
             # move = 2
-		elsif board[8] == player_marker
+		elsif board[8] == player_marker && board[0] == ""
 			@open_spot = 0
             # move = 0
 		end
@@ -197,20 +204,25 @@ class UnbeatableAI
 	end
 
     def check_empty_corner(board)
-		@open_spot = 10
+		# @open_spot = 10
         corners = [0, 2, 6, 8]
 		corner_options = []
 
 		corners.each do |corner|
 			if board[corner] == ""
                 corner_options.push(corner)
+			unless board[4] != ""
+				then 
+
+				# check_empty_side(board)
+			end
 			end
 		end
 		open_spot = corner_options.shift
 	end
 
 	def check_empty_side(board)
-        @open_spot = 10
+        # @open_spot = 10
 		sides = [1, 3, 5, 7]
 		side_options = []
 
