@@ -11,14 +11,9 @@ enable :sessions
 ai = ""
 
 get '/' do
-    # @title = "Susan Magic Tic Tac Toe"
     session[:board] = Board.new(["","","","","","","","",""])
     erb :home, :layout => :home_layout, :locals => { :board => session[:board].board_positions }
 end
-
-# get '/rules' do
-#     erb :rules
-# end
 
 get '/player_1_name' do
     erb :player_1_name, :layout => :home_layout, :locals => { :board => session[:board].board_positions }
@@ -69,40 +64,15 @@ end
 
 post '/player_2_name' do
 	session[:current_player_name] = session[:player_1_name]
-	# session[:player_2] = params[:player_2]
-    # session[:player_2_name] = params[:player_2_name]
-	# session[:board] = session[:board].board_positions
     redirect '/get_move'
 end
 
-# get '/play_game' do
-#     session[:player_1_name] = params[:player_1]
-# 	session[:player_2_name] = params[:player_2]
-#     session[:player_1] = Console_human.new("X")
-#     session[:current_player] = session[:player_1]
-#     session[:current_player_name] = session[:player_1_name]
-
-#     erb :play_game, :layout => :home_layout, :locals => { :board => session[:board].grid, :current_player_name => session[:current_player_name], :player_1_name => session[:player_1_name], :player_2_name => session[:player_2_name]}
-#     #the above saves your board and lets you pull it everytime you call it?  Pushes your board into the erb.  
-
-#     # redirect '/get_move'
-# end
-
 get '/get_move' do
-	# session[:board] = Board.new(["","","","","","","","",""])
-	# session[:board] = session[:board].board_positions
-	# session[:player_1] = params[:player_1]
-	# session[:player_2] = params[:player_2]
-	# session[:player_2_name] = session[:player_2_name]
-	
-	# session[:player_1_name] = session[:player_1_name]
-	
 	move = session[:current_player].get_move(session[:board].grid)
     
 	if move == "NO"
 	erb :get_move, :locals => { :current_player => session[:current_player], :current_player_name => session[:current_player_name], :board => session[:board].board_positions }
-        
-        
+          
     	elsif session[:board].valid_space?(move)
             redirect '/make_move' #+ move.to_s 
         else
@@ -111,9 +81,6 @@ get '/get_move' do
 end
 
 post '/get_player_move' do
-	
-	# session[:board] = session[:board]
-
     move = params[:square].to_i
 	# puts "move is #{move}"
 
@@ -132,15 +99,13 @@ get '/make_move' do
 	puts "move is #{move}"
 	session[:board].update((move - 1), session[:current_player].marker)
 
-	# redirect '/change_player'
-
 	erb :get_move, :locals => { :current_player => session[:current_player], :current_player_name => session[:current_player_name], :board => session[:board].board_positions }
 
 	if session[:board].winner?(session[:current_player].marker) == true
 		player_1 = session[:player_1_name]
 		player_2 = session[:player_2_name]
 		winner = session[:current_player_name]
-		# redirect '/get_winner'
+		
 		erb :win, :locals => { :current_player => session[:current_player], :current_player_name => session[:current_player_name], :board => session[:board].board_positions }
 
 	elsif session[:board].full_board? == true
@@ -148,24 +113,14 @@ get '/make_move' do
 		player_2 = session[:player_2_name]
 		winner = "Tie"
 		erb :tie, :locals => { :board => session[:board].board_positions }
-		# redirect '/get_tie'
-	else
-		redirect '/change_player'
+		
+	else redirect '/change_player'
 		
 	end
 end
 
-# get '/get_winner' do
-# 	winner
-# end
-
-# get '/get_tie' do
-# 	try again
-# end
-
 get '/change_player' do
-	# session[:board] = session[:board].board_positions
-
+	
 		if session[:current_player].marker == "X"
 			session[:current_player] = session[:player_2]
 			session[:current_player_name] = session[:player_2_name]
@@ -177,5 +132,4 @@ get '/change_player' do
 
 		erb :get_move, :locals => { :current_player => session[:current_player], :current_player_name => session[:current_player_name], :board => session[:board].board_positions }
 	
-	# end	
 end
