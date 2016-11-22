@@ -132,25 +132,36 @@ get '/make_move' do
 	puts "move is #{move}"
 	session[:board].update((move - 1), session[:current_player].marker)
 
-	redirect '/change_player'
+	# redirect '/change_player'
+
 	erb :get_move, :locals => { :current_player => session[:current_player], :current_player_name => session[:current_player_name], :board => session[:board].board_positions }
 
-	# if session[:board].winner?(session[:current_player].marker) == true
-	# 	player_1 = session[:player_1_name]
-	# 	player_2 = session[:player_2_name]
-	# 	winner = session[:current_player_name]
+	if session[:board].winner?(session[:current_player].marker) == true
+		player_1 = session[:player_1_name]
+		player_2 = session[:player_2_name]
+		winner = session[:current_player_name]
+		# redirect '/get_winner'
+		erb :win, :locals => { :current_player => session[:current_player], :current_player_name => session[:current_player_name], :board => session[:board].board_positions }
 
-	# 	erb :win, :locals => { :current_player => session[:current_player], :current_player_name => session[:current_player_name], :board => session[:board].grid }
-
-	# elsif session[:board].full_board? == true
-	# 	player_1 = session[:player_1_name]
-	# 	player_2 = session[:player_2_name]
-	# 	winner = "Tie"
+	elsif session[:board].full_board? == true
+		player_1 = session[:player_1_name]
+		player_2 = session[:player_2_name]
+		winner = "Tie"
+		erb :tie, :locals => { :board => session[:board].board_positions }
+		# redirect '/get_tie'
+	else
+		redirect '/change_player'
+		
+	end
 end
-	# 	erb :tie, :locals => { :board => session[:board].grid }
 
-	# else
+# get '/get_winner' do
+# 	winner
+# end
 
+# get '/get_tie' do
+# 	try again
+# end
 
 get '/change_player' do
 	# session[:board] = session[:board].board_positions
