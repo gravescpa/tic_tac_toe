@@ -34,31 +34,35 @@ class UnbeatableAI
 
         if check_win_block(board, comp_marker) <= 8
             move = check_win_block(board, comp_marker)
+			move = move + 1
 
             elsif check_win_block(board, player_marker) <=8
                 move = check_win_block(board, player_marker)
+				move = move + 1
 
             elsif check_for_fork(board) <= 8
                 move = check_for_fork(board)
+				move = move + 1
 
             elsif block_opponents_fork(board, comp_marker) <= 8
                 move = block_opponents_fork(board, comp_marker)
+				move = move + 1
 
 			elsif check_for_center(board) #<= 8
                 move = check_for_center(board)
-
-			
+				move = move + 1
 
 			elsif check_empty_side(board) <= 8
 				move = check_empty_side(board)
+				move = move + 1
+
 			elsif opponent_corner(board) <= 8
 				move = opponent_corner(board)
+				move = move + 1
 			  
 			elsif check_empty_corner(board) <= 8
 				move = check_empty_corner(board)
-
-		
-			
+				move = move + 1
 
             else
                 move = board.index("")
@@ -172,6 +176,7 @@ class UnbeatableAI
 	end
 
     def check_for_center(board)
+		# if board[4] != "X" || board[4] != "O"
 		if board[4] == ""
 			@open_spot = 4
         end
@@ -209,7 +214,7 @@ class UnbeatableAI
 		corner_options = []
 
 		corners.each do |corner|
-			if board[corner] == ""
+			if board[corner] != "X" || board[corner] != "O"
                 corner_options.push(corner)
 			unless board[4] != ""
 				then 
@@ -227,7 +232,7 @@ class UnbeatableAI
 		side_options = []
 
 		sides.each do |side|
-			if board[side] == ""
+			if board[side] != "X" || board[side] != "O"
 				side_options.push(side)
 			end
 		end
