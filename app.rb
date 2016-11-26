@@ -5,13 +5,18 @@ require_relative 'human.rb'
 require_relative 'console_random_ai.rb'
 require_relative 'console_sequential_ai.rb'
 require_relative 'unbeatable_ai.rb'
+require_relative 'negamax.rb'
+require_relative 'players.rb'
 
 enable :sessions
+play_board = Board.new(["","","","","","","","",""])
+players = Gameplayers.new()
 
 ai = ""
 
 get '/' do
     session[:board] = Board.new(["","","","","","","","",""])
+	session[:players] = Gameplayers.new()
     erb :home, :layout => :home_layout, :locals => { :board => session[:board].board_positions }
 end
 
@@ -39,23 +44,23 @@ post '/choose_opponent' do
 		session[:player_2_name] = session[:player_2]
         redirect '/player_2_name'
 
-	elsif player_2 == "sequential_ai"
-		session[:player_2] = SequentialAI.new("O")
+	elsif player_2 == "random_ai"
+		session[:player_2] = RandomAI.new("O")
 		session[:player_2_name] = "Easy"
 		# erb :layout => :home_layout, :locals => { :board => session[:board].board_positions}
 		redirect '/get_move'
 
-	elsif player_2 == "random_ai"
-		session[:player_2] = RandomAI.new("O")
+	elsif player_2 == "unbeatable_ai"
+		session[:player_2] = UnbeatableAI.new("O")
 		session[:player_2_name] = "Medium"
 
 		redirect '/get_move'
 
-	else player_2 == "unbeatable_ai"
-		session[:player_2] = UnbeatableAI.new("O")
-		session[:player_2_name] = "Hard"
-
-		redirect '/get_move'
+	# else player_2 == "negamax_ai"
+	# 	session[:player_2] = Negamax.new(session[:board], session[:players])
+	# 	session[:player_2_name] = "Hard"
+	# 	# erb :layout => :home_layout, :locals => {:board => session[:board].board_positions}
+	# 	redirect '/get_move'
 	end
 end
 
