@@ -12,12 +12,12 @@ p {
 
 /* Player One text color on Home page */
 .player-one {
-  color: #ff745c;
+  color: red;
 }
 
 /* Player Two text color on Opponent page*/
 .player-two {
-  color: #38aac5;
+  color: darkblue;
 }
 
 /* Start of header css - Tic Tac Toe Game */
@@ -93,12 +93,12 @@ p {
 
 /* Color of X placed on board and Player One */
 input[value="X"] {
-  color: #ff745c;
+  color: red;
 }
 
 /* Color of O placed on board and Player Two */
 input[value="O"] {
-  color: #38aac5;
+  color: darkblue;
 }
 
 /* Forms for Home, Opponent page */
