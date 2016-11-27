@@ -56,11 +56,11 @@ post '/choose_opponent' do
 
 		redirect '/get_move'
 
-	# else player_2 == "negamax_ai"
-	# 	session[:player_2] = Negamax.new(session[:board], session[:players])
-	# 	session[:player_2_name] = "Hard"
-	# 	# erb :layout => :home_layout, :locals => {:board => session[:board].board_positions}
-	# 	redirect '/get_move'
+	else player_2 == "negamax_ai"
+		session[:player_2] = Negamax.new(session[:board], session[:players])
+		session[:player_2_name] = "Hard"
+		# erb :layout => :home_layout, :locals => {:board => session[:board].board_positions}
+		redirect '/get_move'
 	end
 end
 
