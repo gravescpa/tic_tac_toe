@@ -6,7 +6,7 @@ require_relative 'console_random_ai.rb'
 require_relative 'console_sequential_ai.rb'
 require_relative 'unbeatable_ai.rb'
 require_relative 'negamax.rb'
-require_relative 'players.rb'
+
 
 enable :sessions
 play_board = Board.new(["","","","","","","","",""])
