@@ -8,12 +8,12 @@ require_relative 'unbeatable_ai.rb'
 
 
 enable :sessions
-play_board = Board.new(["","","","","","","","",""])
+# play_board = Board.new#(["","","","","","","","",""])
 
 ai = ""
 
 get '/' do
-    session[:board] = Board.new(["","","","","","","","",""])
+    session[:board] = Board.new#(["","","","","","","","",""])
 	
     erb :home, :layout => :home_layout, :locals => { :board => session[:board].board_positions }
 end

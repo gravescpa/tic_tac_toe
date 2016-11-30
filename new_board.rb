@@ -2,8 +2,9 @@ class Board
 
 	attr_accessor :grid
 	
-	def initialize(board)
-		@grid = board
+	def initialize(grid_size)
+		number_spaces = grid_size * grid_size
+		@grid = Array.new(number_spaces, "")
 	end
 
 	def board_positions()
@@ -21,6 +22,7 @@ class Board
 	def update(position, marker)
 		grid[position] = marker
 	end
+
 
 	def valid_space?(position)
 		position = (position - 1)
